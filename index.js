@@ -19,10 +19,6 @@ catch (err) {
     console.log(`error while connecting to mongodb${err}`);
 }
 
-app.get('/', (req, res) => {
-    return res.json({ 'message': "started working and hi for this" });
-})
-
 app.get('/getData', async (req, res) => {
     let userData = await User.find();
     console.log('getData userData = ', userData);
