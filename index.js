@@ -19,7 +19,7 @@ catch (err) {
     console.log(`error while connecting to mongodb${err}`);
 }
 
-app.get('/getData', async (req, res) => {
+app.get('/api/getData', async (req, res) => {
     let userData = await User.find();
     console.log('getData userData = ', userData);
 
@@ -30,7 +30,7 @@ app.get('/getData', async (req, res) => {
     return res.json({ userData: userData });
 });
 
-app.get('/getSingleUsers/:userid', async (req, res) => {
+app.get('/api/getSingleUsers/:userid', async (req, res) => {
     let userid = req.params.userid;
     console.log('getSingleUsers userid = ', userid);
 
@@ -49,7 +49,7 @@ app.get('/getSingleUsers/:userid', async (req, res) => {
     });
 });
 
-app.post('/sendData', async (req, res) => {
+app.post('/api/sendData', async (req, res) => {
     let username = req.body.username;
     let age = req.body.age;
     console.log('sendData username = ', username, ' age  = ', age);
@@ -67,7 +67,7 @@ app.post('/sendData', async (req, res) => {
     return res.status(200).json({ newUser: newUser });
 });
 
-app.put('/updateData/:userid', async (req, res) => {
+app.put('/api/updateData/:userid', async (req, res) => {
     let userid = req.params.userid;
     let username = req.body.username;
     let age = req.body.age;
@@ -95,7 +95,7 @@ app.put('/updateData/:userid', async (req, res) => {
     });
 });
 
-app.delete('/deleteData/:userid', async (req, res) => {
+app.delete('/api/deleteData/:userid', async (req, res) => {
     let userid = req.params.userid;
     console.log('deleteData userid = ', userid);
 
