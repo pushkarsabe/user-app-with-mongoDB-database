@@ -2,18 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./model/user');
+require('dotenv').config();
 
 const app = express();
-const port = 4000;
-const host = '127.0.0.1';
-const mongoURL = 'mongodb://127.0.0.1:27017/DemoDBUsers'
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 try {
-    mongoose.connect(mongoURL)
+    mongoose.connect(process.env.MONGODBURL)
         .then(() => console.log('Connected to MongoDB'))
         .catch(err => console.log('MongoDB connection error:', err));
 }
@@ -123,8 +121,8 @@ app.delete('/deleteData/:userid', async (req, res) => {
 });
 
 try {
-    app.listen(4000, host, () => {
-        console.log(`server started running at ${port}`);
+    app.listen(process.env.PORT, process.env.HOST, () => {
+        console.log(`server started running at ${process.env.PORT}`);
     })
 }
 catch (err) {
