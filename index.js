@@ -116,14 +116,13 @@ app.delete('/api/deleteData/:userid', async (req, res) => {
     });
 });
 
-// try {
-//     app.listen(process.env.PORT, process.env.HOST, () => {
-//         console.log(`server started running at ${process.env.PORT}`);
-//     })
-// }
-// catch (err) {
-//     console.log(`error while starting server${err}`);
-// }
+try {
+    app.listen(process.env.PORT, process.env.HOST, () => {
+        console.log(`server started running at ${process.env.PORT}`);
+    })
+}
+catch (err) {
+    console.log(`error while starting server${err}`);
+}
 
 
-module.exports = app;
