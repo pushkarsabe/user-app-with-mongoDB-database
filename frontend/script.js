@@ -91,7 +91,7 @@ userForm.addEventListener('submit', async (e) => {
     if (userId) {
         // Update user
         if (confirm(`Are you sure you want to update user ${username}?`)) {
-            await updateUser(userId, username);
+            await updateUser(userId, username, age);
         }
     } else {
         // Add new user
@@ -121,9 +121,9 @@ const addUser = async (username, age) => {
 };
 
 // Update an existing user
-const updateUser = async (id, username) => {
+const updateUser = async (id, username, age) => {
     try {
-        const response = await axios.put(`${API_BASE_URL}/updateData/${id}`, { username });
+        const response = await axios.put(`${API_BASE_URL}/updateData/${id}`, { username, age });
         if (response.status === 200) {
             alert(response.data.message);
             fetchUsers(); // Refresh the table
