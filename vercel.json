@@ -1,35 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/getData",
-      "dest": "index.js"
-    },
-    {
-      "src": "/getSingleUsers/(.*)",
-      "dest": "index.js"
-    },
-    {
-      "src": "/sendData",
-      "dest": "index.js"
-    },
-    {
-      "src": "/updateData/(.*)",
-      "dest": "index.js"
-    },
-    {
-      "src": "/deleteData/(.*)",
-      "dest": "index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "frontend/$1"
-    }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/index.js" },
+    { "source": "/(.*)", "destination": "/frontend/$1" }
   ]
 }

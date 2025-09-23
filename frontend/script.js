@@ -4,7 +4,8 @@ const ageInput = document.getElementById('age');
 const userTableBody = document.getElementById('userTableBody');
 const paginationContainer = document.getElementById('pagination');
 
-const API_BASE_URL = 'http://127.0.0.1:4000';
+// const API_BASE_URL = 'http://127.0.0.1:4000';
+const API_BASE_URL = window.location.origin;
 const USERS_PER_PAGE = 5;
 let currentPage = 1;
 let allUsers = [];
