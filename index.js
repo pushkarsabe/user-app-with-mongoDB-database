@@ -76,7 +76,8 @@ app.post('/sendData', async (req, res) => {
 app.put('/updateData/:userid', async (req, res) => {
     let userid = req.params.userid;
     let username = req.body.username;
-    console.log('updateData userid = ', userid, ' username  = ', username);
+    let age = req.body.age;
+    console.log('updateData userid = ', userid, ' username  = ', username, " age = ", age);
 
     if (!userid) {
         return res.status(400).json({ 'message': "userid is needed" });
@@ -91,6 +92,7 @@ app.put('/updateData/:userid', async (req, res) => {
         return res.status(400).json({ 'message': "user not found with provided userid" });
     }
     userData.username = username;
+    userData.age = age;
     await userData.save();
 
     return res.status(200).json({
