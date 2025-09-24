@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const User = require('./model/user');
+const { User, userValidationSchema } = require('./model/user');
 require('dotenv').config();
 
 const app = express();
@@ -61,20 +61,21 @@ app.get('/api/getSingleUsers/:userid', async (req, res) => {
 });
 
 app.post('/api/sendData', async (req, res) => {
+    const { error } = userValidationSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ 'message': error.details[0].message });
+    }
     try {
         let username = req.body.username;
         let age = req.body.age;
         console.log('sendData username = ', username, ' age  = ', age);
-
-        if (!age && !username) {
-            return res.status(400).json({ 'message': "username and age both values are needed" });
-        }
 
         let newUser = new User({
             username: username,
             age: age
         });
         await newUser.save();
+
         return res.status(201).json({ 'message': 'New user created successfully.', newUser: newUser });
     } catch (err) {
 
@@ -83,6 +84,10 @@ app.post('/api/sendData', async (req, res) => {
 });
 
 app.put('/api/updateData/:userid', async (req, res) => {
+    const { error } = userValidationSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ 'message': error.details[0].message });
+    }
     try {
         let userid = req.params.userid;
         let username = req.body.username;
@@ -91,9 +96,6 @@ app.put('/api/updateData/:userid', async (req, res) => {
 
         if (!userid) {
             return res.status(400).json({ 'message': "userid is needed" });
-        }
-        if (!username) {
-            return res.status(400).json({ 'message': "username is needed" });
         }
 
         let userData = await User.findOne({ _id: userid });
@@ -144,15 +146,11 @@ app.delete('/api/deleteData/:userid', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || 'localhost';
+const HOST = 'localhost';
 
 app.listen(PORT, HOST, () => {
     console.log(`Server started and running at http://${HOST}:${PORT}`);
-}).on('error', (err) => {
-    console.error(`Error while starting the server: ${err.message}`);
-});app.listen(PORT, HOST, () => {
-    console.log(`Server started and running at http://${HOST}:${PORT}`);
-}).on('error', (err) => {
-    console.error(`Error while starting the server: ${err.message}`);
-});
-
+})
+    .on('error', (err) => {
+        console.error(`Error while starting the server: ${err.message}`);
+    }); 
