@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-let userSchema = new mongoose.Schema({
-
+const userSchema = mongoose.Schema({
     username: {
-        type: String,
+        type: string,
         required: true
     },
     age: {
-        type: Number,
+        type: number,
         required: true
     }
 });
