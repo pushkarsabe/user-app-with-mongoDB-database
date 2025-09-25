@@ -3,11 +3,11 @@ const Joi = require('joi');
 
 const userSchema = mongoose.Schema({
     username: {
-        type: string,
+        type: String,
         required: true
     },
     age: {
-        type: number,
+        type: Number,
         required: true
     }
 });
